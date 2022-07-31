@@ -1,0 +1,15 @@
+@import "variables.scss";
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 10%;
+    position: sticky;
+}
+
+@media (prefers-color-scheme: dark) {
+    .header {
+        background-color: $dark-green;
+    }
+}
