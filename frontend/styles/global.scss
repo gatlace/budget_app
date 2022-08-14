@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "variables.scss";
+html {
+  transition: all 0.2s ease-in-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+      color: $dark-text;
+      background-color: $dark-background;
+  }
+}

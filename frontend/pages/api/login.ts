@@ -1,38 +1,47 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { resolve } from "path";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { IronSessionRoute, BACKEND_URL} from 'lib/IronSession';
+import { resourceLimits } from 'worker_threads';
 
-const BACKEND_URL = "localhost:8000"
-
-interface SuccessResponse {
-    success: boolean;
+declare module 'iron-session' {
+    interface IronSessionData {
+        token: string;
+    }
 }
 
-const tryLogin = async (req: NextApiRequest) => {
-    const  { username, password } = JSON.parse(req.body);
-    const response: Promise<SuccessResponse> = await fetch(`http://${BACKEND_URL}/login/`, {   
-        method: "POST",
+const login = async (req: NextApiRequest, res: NextApiResponse) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        if (req.session.token) {
+            res.status(200).json({ message: 'Already logged in' });
+            return;
+        } else {
+            res.status(400).json({ message: 'Please provide username and password' });
+            return;
+        }
+    }
+    
+    const result = await fetch(`${BACKEND_URL}/users/login/`, {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-    }).then(res => {
-        return res.json();
     })
-
-    return response;
-}
-
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== "POST") {
-        res.status(405).end();
+    .then(res => res.json())
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ message: 'Something went wrong' });
         return;
-    }
+    });
 
-    tryLogin(req).then(response => {
-        if (response.success) {
-            res.status(200).json(response);
-        } else {
-            res.status(401).json(response)
-        }
-    })
+    if (result?.token !== undefined) {
+        req.session.token = result.token;
+        await req.session.save();
+        res.status(200).json({ message: 'Logged in' });
+    } else {
+        res.status(400).json({ message: 'Invalid username or password' });
+    }
 }
+
+export default IronSessionRoute(login);

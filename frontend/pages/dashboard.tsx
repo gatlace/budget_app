@@ -1,25 +1,56 @@
-import { GetServerSideProps } from 'next'
+import { BACKEND_URL, checkIfLoggedIn, IronSessionSSR } from 'lib/IronSession'
 import React, { useEffect } from 'react'
 
+type Props = {
+    data: any
+}
 
-const Dashboard = () => {
-  const [transactions, setTransactions] = React.useState<any[]>([])
-  const [loading, setLoading] = React.useState(true)
-
-  useEffect(() => {
-    fetch('/api/transactions')
-      .then(res => res.json())
-      .then(data => {
-        setTransactions(data)
-        setLoading(false)
-      })
-      console.log(transactions)
-  }, [])
-
+const dashboard = (props: Props) => {
+  console.log(props.data)
   return (
     <div>dashboard</div>
   )
 }
 
+export const getServerSideProps = IronSessionSSR(
+  async (ctx) => {
+    const loggedIn = await checkIfLoggedIn(ctx);
+    if (!loggedIn) {
+      return {
+        redirect: {
+          destination: '/login',
+          permanent: false
+        }
+      }
+    }
 
-export default Dashboard
+    const result = await fetch(`${BACKEND_URL}/transactions/dashboard/`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Token ${ctx.req.session.token}`,
+        },
+    })
+    .then(res => {
+      console.log(res)
+      return res.json()
+    })
+    .catch(err => {
+      console.log(err)
+      return {
+        props: {
+          data: []
+        }
+      }
+    }
+    );
+
+    return {
+      props: {
+        data: result,
+      }
+    }
+  }
+)
+
+export default dashboard

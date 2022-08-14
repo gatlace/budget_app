@@ -1,0 +1,44 @@
+@import "../_variables.scss";
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3rem;
+    padding: 0 1rem;
+    position: absolute;
+    inset: 0;
+    transition: all 0.05s ease-in-out;
+
+    .headerItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        transition: all 0.05s ease-in-out;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .header {
+        background-color: $dark-tertiary;
+        color: $dark-text;
+        
+        .headerItem {
+            color: $dark-text;
+            background-color: $dark-tertiary;
+        }
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .header {
+        background-color: $light-tertiary;
+        color: $light-text;
+        
+        .headerItem {
+            color: $light-text;
+            background-color: $light-tertiary;
+        }
+    }
+}
