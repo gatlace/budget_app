@@ -17,3 +17,9 @@ def create_account(request):
     account = Account.objects.create(user=user)
     token = Token.objects.create(user=user)
     return Response({"token": token.key}, status=200)
+
+
+@api_view(["GET"])
+def get_account(request):
+    account = Account.objects.get(user=request.user)
+    return Response(serialize(account))

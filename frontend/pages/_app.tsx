@@ -1,16 +1,18 @@
-import Header from 'components/Header/Header'
-import Page from 'components/Page'
-import type { AppProps } from 'next/app'
-import "styles/global.scss"
+import Header from "components/Header/Header";
+import type { AppProps } from "next/app";
+import "styles/global.scss";
+import Page from "components/Page";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <>
-    <Page>
+  return (
+    <>
       <Header />
-      <Component {...pageProps} />
-    </Page>
-    <div id="portals"/>
-  </>
+      <Page>
+        <Component {...pageProps} />
+      </Page>
+      <div id="portals" />
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;

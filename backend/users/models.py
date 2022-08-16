@@ -13,7 +13,6 @@ class Account(models.Model):
     @property
     def balance(self):
         transactions = Transaction.objects.filter(account=self)
-        print([transaction.amount for transaction in transactions])
         return sum([transaction.amount for transaction in transactions])
 
     def __str__(self):

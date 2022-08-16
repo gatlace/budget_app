@@ -4,12 +4,30 @@
 
 @import "variables.scss";
 html {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.1s ease-in-out;
+  font-family: sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
-      color: $dark-text;
-      background-color: $dark-background;
+    color: $dark-text;
+    background-color: $dark-background;
+  }
+
+  input {
+    color: $dark-text;
+    background-color: $dark-background;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  html {
+    color: $light-text;
+    background-color: $light-background;
+  }
+
+  input {
+    color: $light-text;
+    background-color: $light-background;
   }
 }

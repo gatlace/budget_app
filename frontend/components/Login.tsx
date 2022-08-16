@@ -1,77 +1,91 @@
-import React from 'react'
-import Router, { useRouter } from 'next/router'
-import { IronSessionSSR } from 'lib/IronSession'
-import styles from "styles/Components.module.scss";
+import React, { MouseEventHandler } from "react";
+import styles from "styles/pages/Login.module.scss";
+import pageStyles from "styles/Page.module.scss";
+import Button from "components/base/Button";
+import { useRouter } from "next/router";
+import { checkIfLoggedIn, IronSessionSSR } from "lib/IronSession";
 
 const Login = () => {
-    const router = useRouter()
-    const [username, setUsername] = React.useState('')
-    const [password, setPassword] = React.useState('')
-    const [error, setError] = React.useState('')
-    const [loading, setLoading] = React.useState(false)
-    
-    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        e.preventDefault();
-        console.log(username, password);
-        setLoading(true);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
+  
+  const handleSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
 
-        fetch('/api/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({username,password})
-        })
-        .then(res => {
-            if (res.status === 200) {
-                router.push('/dashboard')
-            } else {
-                setError('Invalid username or password')
-                setLoading(false)
-            }
-        })
-    }
+      if (response.status === 200) {
+        router.push("dashboard");
+      }
 
-    const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value)
-    }
-    
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value)
-    }
+      if (response.status === 401) {
+        setError("Invalid username or password");
+      }
 
+      if (response.status === 500) {
+        setError("Something went wrong");
+      }
+    } catch (e) {
+      setError("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  }
+      
   return (
-    <div className="flex flex-col">
-        <div className={styles.form}>
-            <div className={styles.formItem}>
-                <label htmlFor="username" className={styles.label}>Username</label>
-                <input
-                    className={styles.input}
-                    type="text" 
-                    name="username"
-                    placeholder="username"
-                    onChange={handleUsernameChange}
-                />
+    <div className="flex w-full h-full flex-col items-center">
+        <div className={styles.loginForm}>
+          <div className={styles.input}>
+            <label htmlFor="username" className="m-2">Username</label>
+              <input
+                type="text"
+                id="username"
+                className={pageStyles.displayContainer}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+          </div>
+          <div className={styles.input}>
+          <label htmlFor="password" className="m-2">Username</label>
+          <input
+            type="password"
+            id="password"
+            className={pageStyles.displayContainer}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          </div>
+          {error &&
+            <div className={styles.input}>
+              {error}
             </div>
-            <div className={styles.formItem}>
-                <label htmlFor="password" className={styles.label}>Password</label>
-                <input
-                    className={styles.input}
-                    type="password" 
-                    name="password"
-                    placeholder="password" 
-                    onChange={handlePasswordChange}
-                />
-            </div>
-            {error && <div className="text-red-500">{error}</div>}
-            <div className={styles.formItem}>
-                <button className={styles.button} onClick={handleSubmit}>
-                    {loading ? 'Loading...' : 'Login'}
-                </button>
-            </div>
+          } 
+          <div className={styles.input}>
+            <Button
+              className={styles.loginButton}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </div>
+                  
         </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

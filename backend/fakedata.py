@@ -14,6 +14,6 @@ for i in range(100):
             account=User.objects.get(username="testuser").account,
             amount=faker.pydecimal(left_digits=2, right_digits=2, positive=True),
             merchant=choice(companies),
-            date=faker.date_this_decade(),
+            date=faker.date_this_year(),
         )
     )

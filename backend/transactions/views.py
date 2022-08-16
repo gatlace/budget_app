@@ -11,8 +11,10 @@ from .serializers import serialize
 @api_view(["GET"])
 def account_summary(request):
     account = Account.objects.get(user=request.user)
-    transactions = Transaction.objects.filter(account=account)
-    merchants = set([transaction.merchant for transaction in transactions])
+    transactions = sorted(
+        Transaction.objects.filter(account=account), key=lambda x: x.date
+    )
+    merchant_set = set([transaction.merchant for transaction in transactions])
     merchant_percentages = {
         merchant: (
             sum(
@@ -24,15 +26,22 @@ def account_summary(request):
             )
             / account.balance
         )
-        for merchant in merchants
+        for merchant in merchant_set
     }
+    merchants = [
+        {
+            "name": merchant,
+            "percentage": merchant_percentages[merchant],
+        }
+        for merchant in merchant_set
+    ]
 
     return Response(
         {
-            "companies": merchant_percentages,
-            "balance": account.balance,
+            "merchants": merchants,
+            "account": serialize(account),
             "transactions": [serialize(transaction) for transaction in transactions][
-                :50:
+                :-26:-1
             ],
         }
     )
