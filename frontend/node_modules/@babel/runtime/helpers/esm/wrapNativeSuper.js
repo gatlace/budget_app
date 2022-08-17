@@ -27,8 +27,8 @@ export default function _wrapNativeSuper(Class) {
         value: Wrapper,
         enumerable: false,
         writable: true,
-        configurable: true
-      }
+        configurable: true,
+      },
     });
     return setPrototypeOf(Wrapper, Class);
   };

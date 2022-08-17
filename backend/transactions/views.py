@@ -14,6 +14,8 @@ def account_summary(request):
     transactions = sorted(
         Transaction.objects.filter(account=account), key=lambda x: x.date
     )
+    if transactions is None:
+        return Response({"message": "No transactions found"}, status=404)
     merchant_set = set([transaction.merchant for transaction in transactions])
     merchant_percentages = {
         merchant: (

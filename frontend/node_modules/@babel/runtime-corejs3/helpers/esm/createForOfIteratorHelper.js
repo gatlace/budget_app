@@ -3,10 +3,16 @@ import _getIteratorMethod from "@babel/runtime-corejs3/core-js/get-iterator-meth
 import _Array$isArray from "@babel/runtime-corejs3/core-js/array/is-array";
 import unsupportedIterableToArray from "./unsupportedIterableToArray.js";
 export default function _createForOfIteratorHelper(o, allowArrayLike) {
-  var it = typeof _Symbol !== "undefined" && _getIteratorMethod(o) || o["@@iterator"];
+  var it =
+    (typeof _Symbol !== "undefined" && _getIteratorMethod(o)) ||
+    o["@@iterator"];
 
   if (!it) {
-    if (_Array$isArray(o) || (it = unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+    if (
+      _Array$isArray(o) ||
+      (it = unsupportedIterableToArray(o)) ||
+      (allowArrayLike && o && typeof o.length === "number")
+    ) {
       if (it) o = it;
       var i = 0;
 
@@ -15,27 +21,30 @@ export default function _createForOfIteratorHelper(o, allowArrayLike) {
       return {
         s: F,
         n: function n() {
-          if (i >= o.length) return {
-            done: true
-          };
+          if (i >= o.length)
+            return {
+              done: true,
+            };
           return {
             done: false,
-            value: o[i++]
+            value: o[i++],
           };
         },
         e: function e(_e) {
           throw _e;
         },
-        f: F
+        f: F,
       };
     }
 
-    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    throw new TypeError(
+      "Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."
+    );
   }
 
   var normalCompletion = true,
-      didErr = false,
-      err;
+    didErr = false,
+    err;
   return {
     s: function s() {
       it = it.call(o);
@@ -55,6 +64,6 @@ export default function _createForOfIteratorHelper(o, allowArrayLike) {
       } finally {
         if (didErr) throw err;
       }
-    }
+    },
   };
 }

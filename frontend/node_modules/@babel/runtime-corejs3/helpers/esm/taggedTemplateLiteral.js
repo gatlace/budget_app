@@ -6,9 +6,11 @@ export default function _taggedTemplateLiteral(strings, raw) {
     raw = _sliceInstanceProperty(strings).call(strings, 0);
   }
 
-  return _Object$freeze(_Object$defineProperties(strings, {
-    raw: {
-      value: _Object$freeze(raw)
-    }
-  }));
+  return _Object$freeze(
+    _Object$defineProperties(strings, {
+      raw: {
+        value: _Object$freeze(raw),
+      },
+    })
+  );
 }

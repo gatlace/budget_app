@@ -6,11 +6,8 @@ import { useRouter } from "next/router";
 const Page = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   return (
-    <AnimatePresence
-      initial={false}
-      exitBeforeEnter={true}
-    >
-      <motion.div 
+    <AnimatePresence initial={false} exitBeforeEnter={true}>
+      <motion.div
         key={router.pathname}
         className={styles.pageContainer}
         initial={{ opacity: 0 }}
@@ -20,7 +17,7 @@ const Page = ({ children }: PropsWithChildren) => {
       >
         {children}
       </motion.div>
-  </AnimatePresence>
+    </AnimatePresence>
   );
 };
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Portal from "../base/Portal";
+import Button from "../base/Button";
 import styles from "styles/Components.module.scss";
 import Link from "next/link";
 
@@ -12,15 +13,9 @@ const NavButton = () => {
   return (
     <>
       <div className="w-full h-full text-end">
-        <motion.button
-          aria-hidden={isOpen ? "false" : "true"}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ duration: 0.1 }}
-          onClick={() => setIsOpen(true)}
-        >
+        <Button onClick={() => setIsOpen(true)}>
           <i className="fas fa-bars fa-xl" />
-        </motion.button>
+        </Button>
       </div>
       <AnimatePresence>
         {isOpen && (

@@ -12,7 +12,7 @@ export default function AsyncGenerator(gen) {
         arg: arg,
         resolve: resolve,
         reject: reject,
-        next: null
+        next: null,
       };
 
       if (back) {
@@ -30,16 +30,19 @@ export default function AsyncGenerator(gen) {
       var value = result.value;
       var wrappedAwait = value instanceof AwaitValue;
 
-      _Promise.resolve(wrappedAwait ? value.wrapped : value).then(function (arg) {
-        if (wrappedAwait) {
-          resume(key === "return" ? "return" : "next", arg);
-          return;
-        }
+      _Promise.resolve(wrappedAwait ? value.wrapped : value).then(
+        function (arg) {
+          if (wrappedAwait) {
+            resume(key === "return" ? "return" : "next", arg);
+            return;
+          }
 
-        settle(result.done ? "return" : "normal", arg);
-      }, function (err) {
-        resume("throw", err);
-      });
+          settle(result.done ? "return" : "normal", arg);
+        },
+        function (err) {
+          resume("throw", err);
+        }
+      );
     } catch (err) {
       settle("throw", err);
     }
@@ -50,7 +53,7 @@ export default function AsyncGenerator(gen) {
       case "return":
         front.resolve({
           value: value,
-          done: true
+          done: true,
         });
         break;
 
@@ -61,7 +64,7 @@ export default function AsyncGenerator(gen) {
       default:
         front.resolve({
           value: value,
-          done: false
+          done: false,
         });
         break;
     }
@@ -82,7 +85,9 @@ export default function AsyncGenerator(gen) {
   }
 }
 
-AsyncGenerator.prototype[typeof _Symbol === "function" && _Symbol$asyncIterator || "@@asyncIterator"] = function () {
+AsyncGenerator.prototype[
+  (typeof _Symbol === "function" && _Symbol$asyncIterator) || "@@asyncIterator"
+] = function () {
   return this;
 };
 

@@ -5,7 +5,9 @@ export default function _isNativeReflectConstruct() {
   if (typeof Proxy === "function") return true;
 
   try {
-    Boolean.prototype.valueOf.call(_Reflect$construct(Boolean, [], function () {}));
+    Boolean.prototype.valueOf.call(
+      _Reflect$construct(Boolean, [], function () {})
+    );
     return true;
   } catch (e) {
     return false;

@@ -34,8 +34,6 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
       return;
     });
 
-    console.log(result);
-
   if (result?.token !== undefined) {
     req.session.token = result.token;
     await req.session.save();

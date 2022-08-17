@@ -7,7 +7,9 @@ function _getRequireWildcardCache(nodeInterop) {
   if (typeof _WeakMap !== "function") return null;
   var cacheBabelInterop = new _WeakMap();
   var cacheNodeInterop = new _WeakMap();
-  return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+  return (_getRequireWildcardCache = function _getRequireWildcardCache(
+    nodeInterop
+  ) {
     return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
   })(nodeInterop);
 }
@@ -17,9 +19,12 @@ export default function _interopRequireWildcard(obj, nodeInterop) {
     return obj;
   }
 
-  if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+  if (
+    obj === null ||
+    (_typeof(obj) !== "object" && typeof obj !== "function")
+  ) {
     return {
-      "default": obj
+      default: obj,
     };
   }
 
@@ -30,11 +35,14 @@ export default function _interopRequireWildcard(obj, nodeInterop) {
   }
 
   var newObj = {};
-  var hasPropertyDescriptor = _Object$defineProperty && _Object$getOwnPropertyDescriptor;
+  var hasPropertyDescriptor =
+    _Object$defineProperty && _Object$getOwnPropertyDescriptor;
 
   for (var key in obj) {
     if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
-      var desc = hasPropertyDescriptor ? _Object$getOwnPropertyDescriptor(obj, key) : null;
+      var desc = hasPropertyDescriptor
+        ? _Object$getOwnPropertyDescriptor(obj, key)
+        : null;
 
       if (desc && (desc.get || desc.set)) {
         _Object$defineProperty(newObj, key, desc);

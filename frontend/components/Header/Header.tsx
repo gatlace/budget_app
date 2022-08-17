@@ -1,12 +1,13 @@
 import React from "react";
 import styles from "styles/Header/Header.module.scss";
 import Nav from "./Nav";
+import Settings from "./Settings/Settings";
 
 const Header = () => {
   return (
     <div className={styles.header}>
       <div className={styles.headerItem}>
-        <h1>Settings</h1>
+        <Settings />
       </div>
       <div className={styles.headerItem}>Header</div>
       <div className={styles.headerItem}>

@@ -11,7 +11,7 @@ const Login = () => {
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
-  
+
   const handleSubmit: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -44,23 +44,27 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
-  }
-      
+  };
+
   return (
     <div className="flex w-full h-full flex-col items-center">
-        <div className={styles.loginForm}>
-          <div className={styles.input}>
-            <label htmlFor="username" className="m-2">Username</label>
-              <input
-                type="text"
-                id="username"
-                className={pageStyles.displayContainer}
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-          </div>
-          <div className={styles.input}>
-          <label htmlFor="password" className="m-2">Username</label>
+      <div className={styles.loginForm}>
+        <div className={styles.input}>
+          <label htmlFor="username" className="m-2">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            className={pageStyles.displayContainer}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className={styles.input}>
+          <label htmlFor="password" className="m-2">
+            Username
+          </label>
           <input
             type="password"
             id="password"
@@ -68,22 +72,14 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          </div>
-          {error &&
-            <div className={styles.input}>
-              {error}
-            </div>
-          } 
-          <div className={styles.input}>
-            <Button
-              className={styles.loginButton}
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </div>
-                  
         </div>
+        {error && <div className={styles.input}>{error}</div>}
+        <div className={styles.input}>
+          <Button className={styles.loginButton} onClick={handleSubmit}>
+            Submit
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

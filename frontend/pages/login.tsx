@@ -10,22 +10,19 @@ const login = () => {
   );
 };
 
-export const getServerSideProps = IronSessionSSR(
-  async (ctx) => {
-    const isLoggedIn = await checkIfLoggedIn(ctx);
-    if (isLoggedIn) {
-      return {
-        redirect: {
-          destination: "/dashboard",
-          permanent: false,
-        }
-      };
-    }
+export const getServerSideProps = IronSessionSSR(async (ctx) => {
+  const isLoggedIn = await checkIfLoggedIn(ctx);
+  if (isLoggedIn) {
     return {
-      props: {},
+      redirect: {
+        destination: "/dashboard",
+        permanent: false,
+      },
     };
-
   }
-)
+  return {
+    props: {},
+  };
+});
 
 export default login;
