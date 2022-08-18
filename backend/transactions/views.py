@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -19,14 +20,19 @@ def account_summary(request):
     merchant_set = set([transaction.merchant for transaction in transactions])
     merchant_percentages = {
         merchant: (
-            sum(
-                [
-                    transaction.amount
-                    for transaction in transactions
-                    if transaction.merchant == merchant
-                ]
+            (
+                round(
+                    sum(
+                        [
+                            transaction.amount
+                            for transaction in transactions
+                            if transaction.merchant == merchant
+                        ]
+                    )
+                    / account.balance,
+                    2,
+                )
             )
-            / account.balance
         )
         for merchant in merchant_set
     }
@@ -63,11 +69,24 @@ def get_merchant_transactions(request, merchant):
     transactions = Transaction.objects.filter(account=account, merchant=merchant)
     if not transactions:
         return Response({"message": "No transactions found for this merchant."})
-    merchant_percentage = sum([t.amount for t in transactions]) / account.balance
+    merchant_percentage = sum([t.amount for t in transactions]) / account.balance * 100
+    total = sum([t.amount for t in transactions])
     return Response(
         {
             "merchant": merchant,
-            "percentage": merchant_percentage,
+            "percentage": round(merchant_percentage, 2),
             "transactions": [serialize(transaction) for transaction in transactions],
+            "total": total,
         }
     )
+
+
+@api_view(["PUT"])
+def edit_transaction(request, id):
+    user = request.user
+    transaction = Transaction.objects.get(id=id)
+    transaction.amount = request.data["amount"]
+    transaction.merchant = request.data["merchant"]
+    transaction.date = request.data["date"]
+    transaction.save()
+    return Response({"message": "Transaction updated successfully."})

@@ -7,7 +7,7 @@ from users.serializers import AccountSerializer
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transaction
-        fields = ("amount", "merchant", "date", "account")
+        fields = ("amount", "merchant", "date", "id")
 
 
 def serialize(obj):

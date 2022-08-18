@@ -7,4 +7,5 @@ urlpatterns = [
     path(
         "<str:merchant>/", views.get_merchant_transactions, name="merchant_transactions"
     ),
+    path("edit/<int:id>/", views.edit_transaction, name="edit_transaction"),
 ]

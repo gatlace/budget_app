@@ -5,7 +5,7 @@ import Button from "../base/Button";
 import styles from "styles/Components.module.scss";
 import Link from "next/link";
 
-const NavButton = () => {
+const NavButton = (props: { isLoggedIn: boolean }) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleClose = () => setIsOpen(false);
@@ -14,13 +14,13 @@ const NavButton = () => {
     <>
       <div className="w-full h-full text-end">
         <Button onClick={() => setIsOpen(true)}>
-          <i className="fas fa-bars fa-xl" />
+          <i aria-hidden className="fas fa-bars fa-xl" />
         </Button>
       </div>
       <AnimatePresence>
         {isOpen && (
           <Portal onClose={handleClose} styles="absolute right-4 top-20">
-            <Nav onClose={handleClose} />
+            <Nav onClose={handleClose} isLoggedIn={props.isLoggedIn} />
           </Portal>
         )}
       </AnimatePresence>
@@ -28,7 +28,7 @@ const NavButton = () => {
   );
 };
 
-const Nav = (props: { onClose: () => void }) => {
+const Nav = (props: { onClose: () => void; isLoggedIn: boolean }) => {
   const links = [
     {
       name: "Home",

@@ -49,26 +49,26 @@ const Login = () => {
   return (
     <div className="flex w-full h-full flex-col items-center">
       <div className={styles.loginForm}>
-        <div className={styles.input}>
-          <label htmlFor="username" className="m-2">
+        <div className={styles.inputField}>
+          <label htmlFor="username" className="mx-2">
             Username
           </label>
           <input
             type="text"
             id="username"
-            className={pageStyles.displayContainer}
+            className={styles.input}
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className={styles.input}>
-          <label htmlFor="password" className="m-2">
+        <div className={styles.inputField}>
+          <label htmlFor="password" className="mx-2">
             Username
           </label>
           <input
             type="password"
             id="password"
-            className={pageStyles.displayContainer}
+            className={styles.input + " m-2"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

@@ -1,0 +1,44 @@
+@import "_variables.scss";
+.scrollableContent {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: max-content;
+  min-width: 16rem;
+  width: max-content;
+  gap: 0.5rem;
+
+  .displayCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 94%;
+    border-radius: 0.5rem;
+    flex-grow: 1;
+    margin-right: 0.25rem;
+  }
+}
+
+.editTransaction {
+  position: absolute;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .displayCard {
+    background-color: $dark-background;
+    border: 1px solid $dark-accent;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .displayCard {
+    background-color: $light-background;
+    border: 1px solid $light-accent;
+  }
+}
