@@ -5,7 +5,7 @@ import Button from "../base/Button";
 import styles from "styles/Components.module.scss";
 import Link from "next/link";
 
-const NavButton = (props: { isLoggedIn: boolean }) => {
+const NavButton = () => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleClose = () => setIsOpen(false);
@@ -20,7 +20,7 @@ const NavButton = (props: { isLoggedIn: boolean }) => {
       <AnimatePresence>
         {isOpen && (
           <Portal onClose={handleClose} styles="absolute right-4 top-20">
-            <Nav onClose={handleClose} isLoggedIn={props.isLoggedIn} />
+            <Nav onClose={handleClose} />
           </Portal>
         )}
       </AnimatePresence>
@@ -28,23 +28,19 @@ const NavButton = (props: { isLoggedIn: boolean }) => {
   );
 };
 
-const Nav = (props: { onClose: () => void; isLoggedIn: boolean }) => {
+const Nav = (props: { onClose: () => void }) => {
   const links = [
     {
       name: "Home",
       href: "/",
     },
     {
-      name: "Login/Register",
+      name: "Login",
       href: "/login",
     },
     {
       name: "Dashboard",
       href: "/dashboard",
-    },
-    {
-      name: "Transactions",
-      href: "/transactions",
     },
   ];
 

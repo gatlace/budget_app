@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import styles from "styles/Components.module.scss";
+import React from "react";
 
 interface PortalProps {
   children: React.ReactNode;
@@ -10,29 +11,47 @@ interface PortalProps {
 }
 
 const Portal = (props: PortalProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (e.target === e.currentTarget) {
-      props.onClose();
+  
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (e.target ! instanceof Element && e.target.id === "portal") {
+        props.onClose();
+      }
     }
-  };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        props.onClose();
+      }
+    }
+
+    window.addEventListener("click", handleClickOutside);
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+      window.removeEventListener("keydown", handleKeyDown);
+    }
+  }), [props.onClose];
 
   const portal = (
     <>
       <motion.div
         className={styles.portal}
+        id="portal"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         transition={{ duration: 0.1 }}
-        onClick={handleClick}
       >
         <motion.div
           className={`${props.styles}`}
-          id="portal-content"
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ duration: 0.1 }}
+          tabIndex={0}
         >
           {props.children}
         </motion.div>

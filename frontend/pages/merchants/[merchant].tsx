@@ -1,3 +1,4 @@
+import Button from "components/base/Button";
 import Transactions from "components/displays/Transactions";
 import { BACKEND_URL, IronSessionSSR } from "lib/IronSession";
 import Link from "next/link";
@@ -14,15 +15,18 @@ export interface Transaction {
   amount: number;
   merchant: string;
   date: Date;
+  id: number;
 }
 
 const merchant = (props: Props) => {
   return (
     <div className={pageStyles.pageContent}>
       <Link href="/dashboard">
-        <a className={pageStyles.pageHeader}>
-          <h1 className="hover:text-gray-600">{props.merchant}</h1>
-        </a>
+        <Button onClick={()=>{}}>
+          <a className={pageStyles.pageHeader}>
+            {props.merchant}
+          </a>
+        </Button>
       </Link>
       <div className={pageStyles.displayContainer}>
         <h1 className={pageStyles.displayHeader}>Stats</h1>

@@ -4,7 +4,7 @@ import Nav from "./Nav";
 import Settings from "./Settings/Settings";
 import { useRouter } from "next/router";
 
-const Header = (props: { isLogggedIn: boolean }) => {
+const Header = () => {
   const router = useRouter();
   const path = router.pathname.split("/")[1];
   return (
@@ -14,7 +14,7 @@ const Header = (props: { isLogggedIn: boolean }) => {
       </div>
       <div className={styles.headerItem}>{path ? path : "BudgetWise"}</div>
       <div className={styles.headerItem}>
-        <Nav isLoggedIn={props.isLogggedIn} />
+        <Nav />
       </div>
     </div>
   );

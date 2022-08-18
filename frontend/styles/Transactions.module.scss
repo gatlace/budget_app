@@ -17,6 +17,7 @@
     border-radius: 0.5rem;
     flex-grow: 1;
     margin-right: 0.25rem;
+    transition: all 0.1s ease-in-out;
   }
 }
 
@@ -26,13 +27,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  width: max-content;
 }
 
 @media (prefers-color-scheme: dark) {
   .displayCard {
     background-color: $dark-background;
     border: 1px solid $dark-accent;
+
+    &:hover {
+      background-color: $dark-tertiary;
+    }
   }
 }
 
@@ -40,5 +45,9 @@
   .displayCard {
     background-color: $light-background;
     border: 1px solid $light-accent;
+
+    &:hover {
+      background-color: $light-tertiary;
+    }
   }
 }

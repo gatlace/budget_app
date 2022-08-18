@@ -13,7 +13,7 @@ from .serializers import serialize
 def account_summary(request):
     account = Account.objects.get(user=request.user)
     transactions = sorted(
-        Transaction.objects.filter(account=account), key=lambda x: x.date
+        Transaction.objects.filter(account=account), key=lambda x: x.date, reverse=True
     )
     if transactions is None:
         return Response({"message": "No transactions found"}, status=404)
@@ -59,7 +59,10 @@ def account_summary(request):
 def get_all_transactions(request):
     account = Account.objects.get(user=request.user)
     transactions = Transaction.objects.filter(account=account)
-    serialized_transactions = [serialize(transaction) for transaction in transactions]
+    serialized_transactions = sorted(
+        [serialize(transaction) for transaction in transactions], key=lambda x: x["date"], reverse=True
+    )
+    return Response({"transactions": serialized_transactions})
     return Response({"transactions": serialized_transactions})
 
 
@@ -75,7 +78,11 @@ def get_merchant_transactions(request, merchant):
         {
             "merchant": merchant,
             "percentage": round(merchant_percentage, 2),
-            "transactions": [serialize(transaction) for transaction in transactions],
+            "transactions": sorted(
+                [serialize(transaction) for transaction in transactions],
+                key=lambda x: x.date,
+                reverse=True,
+            ),
             "total": total,
         }
     )
@@ -83,10 +90,29 @@ def get_merchant_transactions(request, merchant):
 
 @api_view(["PUT"])
 def edit_transaction(request, id):
-    user = request.user
     transaction = Transaction.objects.get(id=id)
     transaction.amount = request.data["amount"]
     transaction.merchant = request.data["merchant"]
     transaction.date = request.data["date"]
     transaction.save()
     return Response({"message": "Transaction updated successfully."})
+
+
+@api_view(["DELETE"])
+def delete_transaction(request, id):
+    transaction = Transaction.objects.get(id=id)
+    transaction.delete()
+    return Response({"message": "Transaction deleted successfully."})
+
+
+@api_view(["POST"])
+def add_transaction(request):
+    account = Account.objects.get(user=request.user)
+    transaction = Transaction(
+        account=account,
+        amount=request.data["amount"],
+        merchant=request.data["merchant"],
+        date=request.data["date"],
+    )
+    transaction.save()
+    return Response({"message": "Transaction added successfully."})

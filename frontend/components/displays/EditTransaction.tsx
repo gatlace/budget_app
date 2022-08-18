@@ -7,16 +7,74 @@ import { Transaction } from "pages/dashboard";
 import Button from "components/base/Button";
 
 type Props = {
-  currentTransaction: Transaction;
+  currentTransaction?: Transaction;
+  isCreating: boolean;
   onClose: () => void;
-  onSubmit: (amount: number, merchant: string, date: Date) => void;
+  onSubmit: () => void;
 };
 
 const EditTransaction = (props: Props) => {
-  const { currentTransaction, onClose, onSubmit } = props;
-  const [amount, setAmount] = React.useState(currentTransaction.amount);
-  const [merchant, setMerchant] = React.useState(currentTransaction.merchant);
-  const [date, setDate] = React.useState(currentTransaction.date);
+  const { currentTransaction, onClose } = props;
+  const [amount, setAmount] = React.useState(
+    currentTransaction ? currentTransaction.amount : 0
+  );
+  const [merchant, setMerchant] = React.useState(
+    currentTransaction ? currentTransaction.merchant : ""
+  );
+  const [date, setDate] = React.useState(
+    currentTransaction ? currentTransaction.date : new Date()
+  );
+
+  const handleSubmit = async () => {
+    if (!currentTransaction) {
+      return;
+    }
+    await fetch(`/api/edit_transaction`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: currentTransaction.id,
+        amount,
+        merchant,
+        date,
+      }),
+    }).catch(console.error);
+    props.onClose();
+  };
+
+  const handleDelete = async () => {
+    if (!currentTransaction) {
+      return;
+    }
+    await fetch(`/api/delete_transaction`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: currentTransaction.id,
+      }),
+    }).catch(console.error);
+    props.onSubmit();
+  };
+
+  const handleCreate = async () => {
+    await fetch(`/api/create_transaction`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount,
+        merchant,
+        date,
+      }),
+    }).catch(console.error);
+    props.onSubmit();
+  }
+  
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(parseFloat(e.target.value));
@@ -30,7 +88,7 @@ const EditTransaction = (props: Props) => {
   };
 
   return (
-    <Portal onClose={onClose}>
+    <Portal onClose={onClose} styles="flex justify-center items-center">
       <div className={styles.editTransaction}>
         <div className={pageStyles.displayContainer}>
           <h1 className={pageStyles.displayHeader}>Edit Transaction</h1>
@@ -40,8 +98,12 @@ const EditTransaction = (props: Props) => {
             <input
               className={componentStyles.input}
               type="number"
-              placeholder={currentTransaction.amount as unknown as string}
-              value={amount}
+              placeholder={
+                currentTransaction
+                  ? (currentTransaction.amount as unknown as string)
+                  : ""
+              }
+              value={amount as unknown as string}
               onChange={handleAmountChange}
             />
           </div>
@@ -50,8 +112,12 @@ const EditTransaction = (props: Props) => {
             <input
               className={componentStyles.input}
               type="text"
-              placeholder={currentTransaction.merchant as unknown as string}
-              value={merchant}
+              placeholder={
+                currentTransaction
+                  ? (currentTransaction.merchant as unknown as string)
+                  : ""
+              }
+              value={merchant as string}
               onChange={handleMerchantChange}
             />
           </div>
@@ -60,18 +126,32 @@ const EditTransaction = (props: Props) => {
             <input
               className={componentStyles.input}
               type="date"
-              placeholder={currentTransaction.date as unknown as string}
+              placeholder={
+                currentTransaction
+                  ? (currentTransaction.date as unknown as string)
+                  : ""
+              }
               value={new Date(date).toISOString().split("T")[0]}
               onChange={handleDateChange}
             />
           </div>
-          <div className={componentStyles.inputField}>
+          <div className={"flex justify-" + (!props.isCreating? "between" : "center")}>
             <Button
               className={componentStyles.input}
-              onClick={() => onSubmit(amount, merchant, date)}
+              onClick={(!props.isCreating? handleSubmit : handleCreate)}
             >
               Submit
             </Button>
+            {
+              !props.isCreating &&
+            
+            <Button
+              className={componentStyles.input + " bg-red-900"}
+              onClick={handleDelete}
+            >
+              Delete
+            </Button>
+      }
           </div>
         </div>
       </div>

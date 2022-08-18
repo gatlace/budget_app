@@ -7,43 +7,47 @@ import { AnimatePresence } from "framer-motion";
 import EditTransaction from "./EditTransaction";
 import { BACKEND_URL } from "lib/IronSession";
 import { Transaction } from "pages/dashboard";
+import Button from "components/base/Button";
 
 const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
   const router = useRouter();
   const [currentTransaction, setCurrentTransaction] =
     React.useState<Transaction | null>(null);
   const isEditing = router.asPath.includes("edit");
-  const handleSubmit = async (amount: number, merchant: string, date: Date) => {
-    if (currentTransaction === null) {
-      return;
-    }
+  const [isCreating, setIsCreating] = React.useState(false);
 
-    await fetch(`/api/edit_transaction`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: currentTransaction.id,
-        amount,
-        merchant,
-        date,
-      }),
-    }).catch(console.error);
+  const handleSubmit = () => {
     setCurrentTransaction(null);
+    setIsCreating(false);
+    router.replace(router.asPath);
+  };
+
+  const handleClose = () => {
+    setCurrentTransaction(null);
+    setIsCreating(false);
     router.replace(router.asPath);
   };
 
   return (
     <>
       <div className={pageStyles.displayContainer}>
-        <h1 className={pageStyles.displayHeader}>Transactions</h1>
+        <h1 className={pageStyles.displayHeader}>
+          Transactions{" "}
+          <span className="text-lg font-normal">
+            (total: {transactions.length})
+          </span>{" "}
+          {isEditing && (
+            <Button onClick={() => setIsCreating(true)}>
+              <i className="fa-solid fa-plus" />
+            </Button>
+          )}
+        </h1>
         <div className={pageStyles.displayContent}>
           <div
             className={styles.scrollableContent}
             style={!isEditing ? { height: "16rem" } : { height: "40rem" }}
           >
-            {transactions.map((transaction, index) => {
+           {transactions.map((transaction, index) => {
               return (
                 <div
                   key={index}
@@ -68,15 +72,19 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
                   <h1 className="text-lg">${transaction.amount}</h1>
                 </div>
               );
-            })}
+            })
+          }
           </div>
         </div>
       </div>
       <AnimatePresence>
-        {currentTransaction && (
+        {(currentTransaction || isCreating) && (
           <EditTransaction
-            currentTransaction={currentTransaction}
-            onClose={() => setCurrentTransaction(null)}
+            isCreating={isCreating}
+            currentTransaction={
+              currentTransaction ? currentTransaction : undefined
+            }
+            onClose={handleClose}
             onSubmit={handleSubmit}
           />
         )}
