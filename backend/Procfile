@@ -1,1 +1,1 @@
-worker: python ./runscript.py
+web: python ./runscript.py
