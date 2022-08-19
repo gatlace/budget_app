@@ -23,12 +23,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-%vq)1h*pirpo94_tls+7je)-$o72fnl#-qz09$e02p16_z_jvv"
+SECRET_KEY = "S07G7YZ2bp2jbjAnnthyVr5Vm4KTT2ttnUJbdHyzIn6c4PEHr2YFKcoMwVtGynXl"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "gatlace-budget-app-backend.herokuapp.com",
+]
 
 
 # Application definition
