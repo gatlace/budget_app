@@ -3,4 +3,4 @@ import os
 
 import os
 
-os.system("python manage.py runserver")
+os.system("gunicorn budget_app_backend.wsgi")
