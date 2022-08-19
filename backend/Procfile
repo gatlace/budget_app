@@ -1,1 +1,1 @@
-web: poetry run python manage.py runserver
+web: python ./runscript.py
