@@ -48,9 +48,7 @@ def account_summary(request):
         {
             "merchants": merchants,
             "account": serialize(account),
-            "transactions": [serialize(transaction) for transaction in transactions][
-                :-26:-1
-            ],
+            "transactions": [serialize(transaction) for transaction in transactions],
         }
     )
 
@@ -60,7 +58,9 @@ def get_all_transactions(request):
     account = Account.objects.get(user=request.user)
     transactions = Transaction.objects.filter(account=account)
     serialized_transactions = sorted(
-        [serialize(transaction) for transaction in transactions], key=lambda x: x["date"], reverse=True
+        [serialize(transaction) for transaction in transactions],
+        key=lambda x: x["date"],
+        reverse=True,
     )
     return Response({"transactions": serialized_transactions})
     return Response({"transactions": serialized_transactions})
@@ -80,7 +80,7 @@ def get_merchant_transactions(request, merchant):
             "percentage": round(merchant_percentage, 2),
             "transactions": sorted(
                 [serialize(transaction) for transaction in transactions],
-                key=lambda x: x.date,
+                key=lambda x: x["date"],
                 reverse=True,
             ),
             "total": total,
