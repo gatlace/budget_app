@@ -14,7 +14,7 @@ def create_account(request):
     user = User.objects.create_user(
         request.data["username"], None, request.data["password"]
     )
-    account = Account.objects.create(user=user)
+    Account.objects.create(user=user)
     token = Token.objects.create(user=user)
     return Response({"token": token.key}, status=200)
 
