@@ -2,10 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/is_logged_in": "pages/api/is_logged_in.js",
-  "/": "pages/index.js",
-  "/api/logout": "pages/api/logout.js",
-  "/dashboard": "pages/dashboard.js",
   "/api/login": "pages/api/login.js",
-  "/login": "pages/login.js"
+  "/dashboard": "pages/dashboard.js"
 }
