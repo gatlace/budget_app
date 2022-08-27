@@ -8,12 +8,13 @@ import useIsLoggedIn from "hooks/useIsLoggedIn";
 
 const SettingsButton = () => {
   const isLoggedIn = useIsLoggedIn();
+  console.log(isLoggedIn);
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <>
       <div className="w-full h-full text-start">
-        <Button onClick={() => (isLoggedIn? setIsOpen(true): {})}>
+        <Button onClick={() => isLoggedIn? setIsOpen(true): {}}>
           <i aria-hidden className="fas fa-cog fa-xl" />
         </Button>
       </div>

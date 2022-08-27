@@ -24,6 +24,23 @@ def create_account(request):
     return Response({"token": token.key}, status=200)
 
 
+@api_view(["POST"])
+def login(request):
+    if not request.data["username"] or not request.data["password"]:
+        return Response({"message": "Please provide both username and password"}, status=400)
+
+    user = User.objects.filter(username=request.data["username"])
+    if len(user) == 0:
+        return Response({"message": "Username does not exist"}, status=404)
+
+    if not user[0].check_password(request.data["password"]):
+        return Response({"message": "Incorrect password"}, status=401)
+
+    token = Token.objects.get(user=user[0])
+    return Response({"token": token.key}, status=200)
+
+
+
 @api_view(["GET"])
 def get_account(request):
     account = Account.objects.get(user=request.user)
