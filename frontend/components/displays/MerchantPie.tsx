@@ -37,28 +37,36 @@ const MerchantPie = (props: Props) => {
           );
         })}
       </div>
-      <PieChart
-        data={props.merchants}
-        radius={PieChart.defaultProps.radius - segmentShift}
-        style={{ height: "300px", zIndex: "1" }}
-        animate={true}
-        label={({ dataEntry }) => dataEntry.percentage.toFixed(0) + "%"}
-        labelPosition={45}
-        labelStyle={{
-          fontSize: "6px",
-          fontFamily: "sans-serif",
-          fill: "#aaa",
-          fontWeight: "bold",
-        }}
-        segmentsShift={(index: number) =>
-          index === debouncedHovered ? segmentShift : 0
-        }
-        onMouseOver={(_, index) => setHovered(index)}
-        onMouseOut={() => setHovered(null)}
-        onClick={(_, index) => {
-          router.push(`/merchants/${props.merchants[index].title}`);
-        }}
-      />
+      {props.merchants.length > 0 ? (
+        <PieChart
+          data={props.merchants}
+          radius={PieChart.defaultProps.radius - segmentShift}
+          style={{ height: "300px", zIndex: "1" }}
+          segmentsStyle={{
+            transition: "all 0.1s ease-in-out",
+            cursor: "pointer",
+          }}
+          animate={true}
+          label={({ dataEntry }) => dataEntry.percentage.toFixed(0) + "%"}
+          labelPosition={45}
+          labelStyle={{
+            fontSize: "6px",
+            fontFamily: "sans-serif",
+            fill: "#aaa",
+            fontWeight: "bold",
+          }}
+          segmentsShift={(index: number) =>
+            index === debouncedHovered ? segmentShift : 0
+          }
+          onMouseOver={(_, index) => setHovered(index)}
+          onMouseOut={() => setHovered(null)}
+          onClick={(_, index) => {
+            router.push(`/merchants/${props.merchants[index].title}`);
+          }}
+        />
+      ) : (
+        "No transactions found"
+      )}
     </div>
   );
 };

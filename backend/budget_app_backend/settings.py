@@ -26,9 +26,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 SECRET_KEY = "S07G7YZ2bp2jbjAnnthyVr5Vm4KTT2ttnUJbdHyzIn6c4PEHr2YFKcoMwVtGynXl"
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "gatlace-budget-app-backend.herokuapp.com",
+    "localhost",
+    "127.0.0.1",
 ]
 
 

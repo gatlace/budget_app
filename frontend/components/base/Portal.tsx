@@ -11,20 +11,18 @@ interface PortalProps {
 }
 
 const Portal = (props: PortalProps) => {
-  
-
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (e.target ! instanceof Element && e.target.id === "portal") {
+      if (e.target! instanceof Element && e.target.id === "portal") {
         props.onClose();
       }
-    }
+    };
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         props.onClose();
       }
-    }
+    };
 
     window.addEventListener("click", handleClickOutside);
     window.addEventListener("keydown", handleKeyDown);
@@ -32,8 +30,9 @@ const Portal = (props: PortalProps) => {
     return () => {
       window.removeEventListener("click", handleClickOutside);
       window.removeEventListener("keydown", handleKeyDown);
-    }
-  }), [props.onClose];
+    };
+  }),
+    [props.onClose];
 
   const portal = (
     <>

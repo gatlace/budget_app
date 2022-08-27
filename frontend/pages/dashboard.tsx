@@ -46,7 +46,9 @@ const dashboard = (props: Props) => {
 
   return (
     <>
-      <h1 className={pageStyles.pageHeader}>Dashboard</h1>
+      <h1
+        className={pageStyles.pageHeader}
+      >{`${account.first_name} ${account.last_name}`}</h1>
       <div className={pageStyles.pageContent}>
         <div className={pageStyles.displayContainer}>
           <h1 className={pageStyles.displayHeader}>Budget</h1>

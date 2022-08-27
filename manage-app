@@ -12,7 +12,7 @@ run_server() {
 }
 lint_format_command() {
     cd backend; \
-    poetry run black .; \
+    poetry run black --extend-exclude '/(bin|lib.*)/' .; \
     cd ../frontend; \
     npm run lint;
     npx prettier --write .;

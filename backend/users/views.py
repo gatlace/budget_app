@@ -10,11 +10,16 @@ from django.contrib.auth.models import User
 @api_view(["POST"])
 def create_account(request):
     if not request.data["username"] or not request.data["password"]:
-        return Response(status=400)
+        return Response({"message": "Please provide both username and password"}, status=400)
+
+    if len(User.objects.filter(username=request.data["username"])) > 0:
+        return Response({"message": "Username already exists"}, status=409)
+
     user = User.objects.create_user(
-        request.data["username"], None, request.data["password"]
+        username=request.data["username"],
+        password=request.data["password"]
     )
-    Account.objects.create(user=user)
+    Account.objects.create(user=user, balance=0, budget=0)
     token = Token.objects.create(user=user)
     return Response({"token": token.key}, status=200)
 

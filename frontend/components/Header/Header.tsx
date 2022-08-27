@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "styles/Header/Header.module.scss";
 import Nav from "./Nav";
-import Settings from "./Settings/Settings";
+import Settings from "./Settings";
 import { useRouter } from "next/router";
+import Button from "components/base/Button";
+import Link from "next/link";
 
 const Header = () => {
   const router = useRouter();
@@ -12,7 +14,11 @@ const Header = () => {
       <div className={styles.headerItem}>
         <Settings />
       </div>
-      <div className={styles.headerItem}>{path ? path : "BudgetWise"}</div>
+      <Link href="/">
+        <Button onClick={() => {}}>
+          <div className={styles.headerItem}>{path ? path : "BudgetWise"}</div>
+        </Button>
+      </Link>
       <div className={styles.headerItem}>
         <Nav />
       </div>

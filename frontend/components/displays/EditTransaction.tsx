@@ -73,8 +73,7 @@ const EditTransaction = (props: Props) => {
       }),
     }).catch(console.error);
     props.onSubmit();
-  }
-  
+  };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAmount(parseFloat(e.target.value));
@@ -135,23 +134,25 @@ const EditTransaction = (props: Props) => {
               onChange={handleDateChange}
             />
           </div>
-          <div className={"flex justify-" + (!props.isCreating? "between" : "center")}>
+          <div
+            className={
+              "flex justify-" + (!props.isCreating ? "between" : "center")
+            }
+          >
             <Button
               className={componentStyles.input}
-              onClick={(!props.isCreating? handleSubmit : handleCreate)}
+              onClick={!props.isCreating ? handleSubmit : handleCreate}
             >
               Submit
             </Button>
-            {
-              !props.isCreating &&
-            
-            <Button
-              className={componentStyles.input + " bg-red-900"}
-              onClick={handleDelete}
-            >
-              Delete
-            </Button>
-      }
+            {!props.isCreating && (
+              <Button
+                className={componentStyles.input + " bg-red-900"}
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            )}
           </div>
         </div>
       </div>

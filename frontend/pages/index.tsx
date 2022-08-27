@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
-import { useEffect } from "react";
+import pageStyles from "styles/Page.module.scss";
 
 const Home: NextPage = () => {
   return (
     <>
-      <h1>Hello</h1>
+      <h1 className={pageStyles.pageHeader}>Welcome to BudgetWise!</h1>
     </>
   );
 };

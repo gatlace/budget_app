@@ -1,9 +1,7 @@
 import React, { MouseEventHandler } from "react";
 import styles from "styles/pages/Login.module.scss";
-import pageStyles from "styles/Page.module.scss";
 import Button from "components/base/Button";
 import { useRouter } from "next/router";
-import { checkIfLoggedIn, IronSessionSSR } from "lib/IronSession";
 
 const Login = () => {
   const [username, setUsername] = React.useState("");
@@ -29,7 +27,7 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        router.push("dashboard");
+        await router.push("dashboard");
       }
 
       if (response.status === 401) {
@@ -37,17 +35,17 @@ const Login = () => {
       }
 
       if (response.status === 500) {
-        setError("Something went wrong");
+        setError("Server error");
       }
-    } catch (e) {
-      setError("Something went wrong");
+    } catch (e: any) {
+      setError(e);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex w-full h-full flex-col items-center">
+    <div className="flex grow-1 flex-col items-center">
       <div className={styles.loginForm}>
         <div className={styles.inputField}>
           <label htmlFor="username" className="mx-2">
@@ -63,22 +61,22 @@ const Login = () => {
         </div>
         <div className={styles.inputField}>
           <label htmlFor="password" className="mx-2">
-            Username
+            Password
           </label>
           <input
             type="password"
             id="password"
-            className={styles.input + " m-2"}
+            className={styles.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         {error && <div className={styles.input}>{error}</div>}
-        <div className={styles.input}>
-          <Button className={styles.loginButton} onClick={handleSubmit}>
-            Submit
-          </Button>
-        </div>
+        <Button className={styles.input} onClick={handleSubmit}>
+          <div className={styles.loginButton}>
+            {loading ? "Loading..." : "Login"}
+          </div>
+        </Button>
       </div>
     </div>
   );

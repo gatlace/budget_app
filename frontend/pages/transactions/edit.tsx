@@ -14,9 +14,7 @@ const edit = (props: Props) => {
     <div className={pageStyles.pageContent}>
       <Link href="/dashboard">
         <Button onClick={() => {}}>
-        <a className={pageStyles.pageHeader}>
-          Edit Transactions
-        </a>
+          <a className={pageStyles.pageHeader}>Edit Transactions</a>
         </Button>
       </Link>
       <Transactions transactions={props.transactions} />
@@ -39,10 +37,10 @@ export const getServerSideProps = IronSessionSSR(async (ctx) => {
     headers: {
       Authorization: `Token ${ctx.req.session["token"]}`,
     },
-  }).then((res) => res.json())
+  }).then((res) => res.json());
   return {
     props: {
-      ... transactions,
+      ...transactions,
     },
   };
 });

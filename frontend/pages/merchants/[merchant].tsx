@@ -22,10 +22,8 @@ const merchant = (props: Props) => {
   return (
     <div className={pageStyles.pageContent}>
       <Link href="/dashboard">
-        <Button onClick={()=>{}}>
-          <a className={pageStyles.pageHeader}>
-            {props.merchant}
-          </a>
+        <Button onClick={() => {}}>
+          <a className={pageStyles.pageHeader}>{props.merchant}</a>
         </Button>
       </Link>
       <div className={pageStyles.displayContainer}>

@@ -1,20 +1,19 @@
 import React from "react";
-import Button from "../../base/Button";
+import Button from "../base/Button";
 import styles from "styles/Components.module.scss";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import Portal from "components/base/Portal";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { checkIfLoggedIn } from "lib/IronSession";
+import useIsLoggedIn from "hooks/useIsLoggedIn";
 
-type Props = {};
-
-const SettingsButton = (props: Props) => {
+const SettingsButton = () => {
+  const isLoggedIn = useIsLoggedIn();
   const [isOpen, setIsOpen] = React.useState(false);
+
   return (
     <>
       <div className="w-full h-full text-start">
-        <Button onClick={() => setIsOpen(true)}>
+        <Button onClick={() => (isLoggedIn? setIsOpen(true): {})}>
           <i aria-hidden className="fas fa-cog fa-xl" />
         </Button>
       </div>
@@ -37,25 +36,26 @@ const Settings = (props: { onClick: () => void }) => {
   const settings = [
     {
       name: "Log out",
-      func: () => {
-        fetch("/api/logout").then((_) => router.push("/"));
+      func: async () => {
+        await fetch("/api/logout");
+        await router.push("/");
       },
     },
     {
       name: "Edit transactions",
-      func: () => {
-        router.push("/transactions/edit");
+      func: async () => {
+        await router.push("/transactions/edit");
       },
     },
   ];
   return (
     <div className={styles.nav}>
-      {settings.map(({ name, func }) => (
+      {settings.map(({ name, func }, index) => (
         <button
-          key={name}
+          key={index}
           className={styles.navItem}
-          onClick={() => {
-            func();
+          onClick={async () => {
+            await func();
             props.onClick();
           }}
         >

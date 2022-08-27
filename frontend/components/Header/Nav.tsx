@@ -3,7 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import Portal from "../base/Portal";
 import Button from "../base/Button";
 import styles from "styles/Components.module.scss";
-import Link from "next/link";
+import useIsLoggedIn from "hooks/useIsLoggedIn";
+import { useRouter } from "next/router";
 
 const NavButton = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -29,27 +30,43 @@ const NavButton = () => {
 };
 
 const Nav = (props: { onClose: () => void }) => {
+  const isLoggedIn = useIsLoggedIn();
+  const router = useRouter();
+
   const links = [
     {
       name: "Home",
-      href: "/",
+      func: () => router.push("/"),
     },
-    {
-      name: "Login",
-      href: "/login",
-    },
+    !isLoggedIn
+      ? {
+          name: "Login/Register",
+          func: () => router.push("/login"),
+        }
+      : {
+          name: "Log out",
+          func: async () => {
+            await fetch("/api/logout");
+            await router.push("/");
+          },
+        },
     {
       name: "Dashboard",
-      href: "/dashboard",
+      func: () => router.push("/dashboard"),
     },
   ];
 
-  const navItems = links.map(({ name, href }) => (
-    <Link key={name} href={href}>
-      <a className={styles.navItem} onClick={props.onClose}>
-        {name}
-      </a>
-    </Link>
+  const navItems = links.map(({ name, func }, index) => (
+    <button
+      key={index}
+      className={styles.navItem}
+      onClick={() => {
+        func();
+        props.onClose();
+      }}
+    >
+      {name}
+    </button>
   ));
   return <div className={styles.nav}>{navItems}</div>;
 };

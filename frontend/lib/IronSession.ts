@@ -3,8 +3,6 @@ import {
   NextApiHandler,
   GetServerSidePropsContext,
   GetServerSidePropsResult,
-  NextApiRequest,
-  NextApiResponse,
 } from "next";
 
 const sessionOptions = {
@@ -15,7 +13,7 @@ const sessionOptions = {
   },
 };
 
-export const BACKEND_URL = "http://localhost:8000";
+export const BACKEND_URL = "https://gatlace-budget-app-backend.herokuapp.com";
 
 export const IronSessionRoute = (handler: NextApiHandler) => {
   return withIronSessionApiRoute(handler, sessionOptions);
@@ -33,9 +31,5 @@ export function IronSessionSSR<
 
 export const checkIfLoggedIn = async (context: GetServerSidePropsContext) => {
   const { token } = context.req.session;
-  if (token) {
-    return true;
-  } else {
-    return false;
-  }
+  return !!token;
 };
