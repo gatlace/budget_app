@@ -6,7 +6,7 @@ class Account(models.Model):
     user = models.OneToOneField("auth.User", on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    budget = models.DecimalField(max_digits=10, decimal_places=2)
+    budget = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
