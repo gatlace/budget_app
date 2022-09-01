@@ -13,3 +13,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
     def __str__(self):
         return f"{self.instance.user.username}'s account"
+
+
+def serialize(account):
+    return AccountSerializer(account).data
