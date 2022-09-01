@@ -71,7 +71,7 @@ export const getServerSideProps = IronSessionSSR(async (ctx) => {
   if (!isLoggedIn) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/account/login",
         permanent: false,
       },
     };
@@ -81,10 +81,12 @@ export const getServerSideProps = IronSessionSSR(async (ctx) => {
     headers: {
       Authorization: `Token ${ctx.req.session["token"]}`,
     },
-  }).then((res) => res.json());
+  }).then((res) => res.json())
+    .then((data) => {
+      return data;
+    });
 
-  const colors = data.merchants
-    .map(() => {
+  const colors = data.merchants.map(() => {
       return (
         "#" +
         Math.floor(Math.random() * 16777215)

@@ -8,13 +8,12 @@ import useIsLoggedIn from "hooks/useIsLoggedIn";
 
 const SettingsButton = () => {
   const isLoggedIn = useIsLoggedIn();
-  console.log(isLoggedIn);
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <>
       <div className="w-full h-full text-start">
-        <Button onClick={() => isLoggedIn? setIsOpen(true): {}}>
+        <Button onClick={() => (isLoggedIn ? setIsOpen(true) : {})}>
           <i aria-hidden className="fas fa-cog fa-xl" />
         </Button>
       </div>
@@ -38,7 +37,7 @@ const Settings = (props: { onClick: () => void }) => {
     {
       name: "Log out",
       func: async () => {
-        await fetch("/api/logout");
+        await fetch("/api/account/logout");
         await router.push("/");
       },
     },
@@ -48,6 +47,12 @@ const Settings = (props: { onClick: () => void }) => {
         await router.push("/transactions/edit");
       },
     },
+    {
+      name: "Edit Account",
+      func: async () => {
+        await router.push("/account/edit");
+      }
+    }
   ];
   return (
     <div className={styles.nav}>

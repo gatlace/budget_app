@@ -15,9 +15,11 @@ const Header = () => {
         <Settings />
       </div>
       <Link href="/">
-        <Button onClick={() => {}}>
-          <div className={styles.headerItem}>{path ? path : "BudgetWise"}</div>
-        </Button>
+        <a>
+          <Button onClick={() => {}}>
+            <div className={styles.headerItem}>{path ? path : "BudgetWise"}</div>
+          </Button>
+        </a>
       </Link>
       <div className={styles.headerItem}>
         <Nav />

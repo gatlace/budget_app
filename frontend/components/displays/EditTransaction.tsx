@@ -48,7 +48,7 @@ const EditTransaction = (props: Props) => {
     if (!currentTransaction) {
       return;
     }
-    await fetch(`/api/delete_transaction`, {
+    await fetch(`/api/transactions/delete`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const EditTransaction = (props: Props) => {
   };
 
   const handleCreate = async () => {
-    await fetch(`/api/create_transaction`, {
+    await fetch(`/api/transactions/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

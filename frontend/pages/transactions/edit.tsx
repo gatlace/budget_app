@@ -27,7 +27,7 @@ export const getServerSideProps = IronSessionSSR(async (ctx) => {
   if (!isLoggedIn) {
     return {
       redirect: {
-        destination: "/login",
+        destination: "/account/login",
         permanent: false,
       },
     };

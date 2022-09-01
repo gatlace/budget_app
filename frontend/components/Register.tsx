@@ -1,11 +1,15 @@
 import React, { MouseEventHandler } from "react";
-import loginStyles from "styles/pages/Login.module.scss";
+import loginStyles from "styles/pages/Form.module.scss";
 import Button from "./base/Button";
 import { useRouter } from "next/router";
+import Form from "./base/Form";
 
 const Register = () => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [passwordConfirm, setPasswordConfirm] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
@@ -14,24 +18,43 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
+
+    if (!username || !password || !passwordConfirm || !firstName || !lastName) {
+      setError("Please fill out all fields");
+      setLoading(false);
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/account/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          firstName,
+          lastName,
           username,
           password,
         }),
       });
 
       if (response.status === 200) {
-        await router.push("dashboard");
+        await router.push("/dashboard");
       }
 
       if (response.status === 401) {
-        setError("Invalid username or password");
+        setError("Please fill out all fields");
+      }
+
+      if (response.status === 409) {
+        setError("Username already exists");
       }
 
       if (response.status === 500) {
@@ -44,40 +67,57 @@ const Register = () => {
     }
   };
 
+  const fields = [
+    {
+      name: "firstName",
+      value: firstName,
+      type: "text",
+      label: "First Name",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setFirstName(e.target.value),
+    },
+    {
+      name: "lastName",
+      value: lastName,
+      type: "text",
+      label: "Last Name",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setLastName(e.target.value),
+    },
+    {
+      name: "username",
+      value: username,
+      label: "Username",
+      type: "text",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setUsername(e.target.value),
+    },
+    {
+      name: "password",
+      value: password,
+      type: "password",
+      label: "Password",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setPassword(e.target.value),
+    },
+    {
+      name: "passwordConfirm",
+      value: passwordConfirm,
+      label: "Confirm Password",
+      type: "password",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setPasswordConfirm(e.target.value),
+    },
+  ];
+
   return (
-    <div className="flex flex-col grow-1 items-center">
-      <div className={loginStyles.loginForm}>
-        <div className={loginStyles.inputField}>
-          <label htmlFor="username" className="mx-2">
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            className={loginStyles.input}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className={loginStyles.inputField}>
-          <label htmlFor="password" className="mx-2">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className={loginStyles.input + " m-2"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <Button onClick={handleSubmit} className={loginStyles.input}>
-          <div className={loginStyles.loginButton}>
-            {loading ? "Loading..." : "Register"}
-          </div>
-        </Button>
-      </div>
-    </div>
+    <Form
+      fields={fields}
+      onSubmit={handleSubmit}
+      submitText={"Register"}
+      isLoading={loading}
+      error={error}
+    />
   );
 };
 

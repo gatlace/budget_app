@@ -13,7 +13,8 @@ const sessionOptions = {
   },
 };
 
-export const BACKEND_URL = "https://gatlace-budget-app-backend.herokuapp.com";
+//export const BACKEND_URL = "https://gatlace-budget-app-backend.herokuapp.com";
+export const BACKEND_URL = "http://localhost:8000";
 
 export const IronSessionRoute = (handler: NextApiHandler) => {
   return withIronSessionApiRoute(handler, sessionOptions);
@@ -31,5 +32,17 @@ export function IronSessionSSR<
 
 export const checkIfLoggedIn = async (context: GetServerSidePropsContext) => {
   const { token } = context.req.session;
-  return !!token;
-};
+  if (!token) {
+    return false;
+  }
+
+  const response = await fetch(`${BACKEND_URL}/users/login/`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Token ${token}`,
+    },
+  });
+
+  return response.status === 200;
+}

@@ -41,12 +41,12 @@ const Nav = (props: { onClose: () => void }) => {
     !isLoggedIn
       ? {
           name: "Login/Register",
-          func: () => router.push("/login"),
+          func: () => router.push("/account/login"),
         }
       : {
           name: "Log out",
           func: async () => {
-            await fetch("/api/logout");
+            await fetch("/api/account/logout");
             await router.push("/");
           },
         },

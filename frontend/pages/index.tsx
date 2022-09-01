@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import pageStyles from "styles/Page.module.scss";
+import { checkIfLoggedIn, IronSessionSSR } from "../lib/IronSession";
 
 const Home: NextPage = () => {
   return (

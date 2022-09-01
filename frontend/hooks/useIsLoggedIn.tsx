@@ -6,7 +6,10 @@ const useIsLoggedIn = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   useEffect(() => {
     const checkIfLoggedIn = async () => {
-      const response = await fetch("/api/is_logged_in");
+      const response = await fetch("/api/account/is_logged_in", {
+        method: "GET",
+        credentials: "include",
+      });
       return response.json();
     };
 

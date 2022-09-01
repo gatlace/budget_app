@@ -74,7 +74,9 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
         <div className={pageStyles.displayHeader}>
           {!isEditing ? (
             <Link href="/transactions/edit">
-              <Button onClick={() => {}}>{header}</Button>
+              <a>
+                <Button onClick={() => {}}>{header}</Button>
+              </a>
             </Link>
           ) : (
             header

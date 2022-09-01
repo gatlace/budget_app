@@ -1,6 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import styles from "styles/pages/Login.module.scss";
-import Button from "components/base/Button";
+import Form from "./base/Form";
 import { useRouter } from "next/router";
 
 const Login = () => {
@@ -15,7 +14,7 @@ const Login = () => {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("/api/account/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +26,7 @@ const Login = () => {
       });
 
       if (response.status === 200) {
-        await router.push("dashboard");
+        await router.push("/dashboard");
       }
 
       if (response.status === 401) {
@@ -44,41 +43,33 @@ const Login = () => {
     }
   };
 
+  const fields = [
+    {
+      name: "username",
+      value: username,
+      label: "Username",
+      type: "text",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setUsername(e.target.value),
+    },
+    {
+      name: "password",
+      value: password,
+      label: "Password",
+      type: "password",
+      onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setPassword(e.target.value),
+    },
+  ];
+
   return (
-    <div className="flex grow-1 flex-col items-center">
-      <div className={styles.loginForm}>
-        <div className={styles.inputField}>
-          <label htmlFor="username" className="mx-2">
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            className={styles.input}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className={styles.inputField}>
-          <label htmlFor="password" className="mx-2">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            className={styles.input}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {error && <div className={styles.input}>{error}</div>}
-        <Button className={styles.input} onClick={handleSubmit}>
-          <div className={styles.loginButton}>
-            {loading ? "Loading..." : "Login"}
-          </div>
-        </Button>
-      </div>
-    </div>
+    <Form
+      fields={fields}
+      onSubmit={handleSubmit}
+      submitText={"Login"}
+      error={error}
+      isLoading={loading}
+    />
   );
 };
 
