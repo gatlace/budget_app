@@ -1,4 +1,4 @@
-import { BACKEND_URL, checkIfLoggedIn, IronSessionSSR } from "lib/IronSession";
+import { BACKEND_URL, checkIfLoggedIn, IronSessionSSR } from "bin/IronSession";
 import React from "react";
 import pageStyles from "styles/Page.module.scss";
 import MerchantPie from "components/displays/MerchantPie";

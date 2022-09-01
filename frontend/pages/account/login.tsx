@@ -1,6 +1,6 @@
 import React from "react";
 import Login from "components/Login";
-import { checkIfLoggedIn, IronSessionSSR } from "lib/IronSession";
+import { checkIfLoggedIn, IronSessionSSR } from "bin/IronSession";
 import pageStyles from "styles/Page.module.scss";
 import Link from "next/link";
 import Button from "components/base/Button";

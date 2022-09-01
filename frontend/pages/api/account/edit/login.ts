@@ -3,7 +3,7 @@ import {
   BACKEND_URL,
   checkIfLoggedIn,
   IronSessionRoute,
-} from "../../../../lib/IronSession";
+} from "../../../../bin/IronSession";
 
 const editLogin = async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, currentPassword, newPassword } = req.body;

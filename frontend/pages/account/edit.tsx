@@ -4,7 +4,7 @@ import Button from "components/base/Button";
 import formStyles from "styles/pages/Form.module.scss";
 import PasswordInput from "components/base/PasswordInput";
 import { useRouter } from "next/router";
-import { checkIfLoggedIn, IronSessionSSR } from "../../lib/IronSession";
+import { checkIfLoggedIn, IronSessionSSR } from "../../bin/IronSession";
 import Link from "next/link";
 import Form from "../../components/base/Form";
 

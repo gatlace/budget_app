@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Portal from "components/base/Portal";
 import { AnimatePresence } from "framer-motion";
 import EditTransaction from "./EditTransaction";
-import { BACKEND_URL } from "lib/IronSession";
+import { BACKEND_URL } from "bin/IronSession";
 import { Transaction } from "pages/dashboard";
 import Button from "components/base/Button";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 import Button from "components/base/Button";
 import Transactions from "components/displays/Transactions";
-import { BACKEND_URL, checkIfLoggedIn, IronSessionSSR } from "lib/IronSession";
+import { BACKEND_URL, checkIfLoggedIn, IronSessionSSR } from "bin/IronSession";
 import Link from "next/link";
 import { Transaction } from "pages/dashboard";
 import pageStyles from "styles/Page.module.scss";

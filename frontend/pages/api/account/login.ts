@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { IronSessionRoute, BACKEND_URL } from "lib/IronSession";
+import { IronSessionRoute, BACKEND_URL } from "bin/IronSession";
 import { resourceLimits } from "worker_threads";
 
 declare module "iron-session" {

@@ -1,6 +1,6 @@
 import Button from "components/base/Button";
 import Transactions from "components/displays/Transactions";
-import { BACKEND_URL, IronSessionSSR } from "lib/IronSession";
+import { BACKEND_URL, IronSessionSSR } from "bin/IronSession";
 import Link from "next/link";
 import pageStyles from "styles/Page.module.scss";
 

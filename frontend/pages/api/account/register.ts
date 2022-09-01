@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { BACKEND_URL, IronSessionRoute } from "../../../lib/IronSession";
+import { BACKEND_URL, IronSessionRoute } from "../../../bin/IronSession";
 
 const register = async (req: NextApiRequest, res: NextApiResponse) => {
   const { username, password, firstName, lastName } = req.body;

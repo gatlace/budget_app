@@ -1,4 +1,4 @@
-import { BACKEND_URL, IronSessionRoute } from "lib/IronSession";
+import { BACKEND_URL, IronSessionRoute } from "bin/IronSession";
 
 const deleteTransaction = IronSessionRoute(async (req, res) => {
   const { id } = req.body;

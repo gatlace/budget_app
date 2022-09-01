@@ -1,4 +1,4 @@
-import { BACKEND_URL, IronSessionRoute } from "lib/IronSession";
+import { BACKEND_URL, IronSessionRoute } from "bin/IronSession";
 import { NextApiResponse, NextApiRequest } from "next";
 
 const createTransaction = async (req: NextApiRequest, res: NextApiResponse) => {

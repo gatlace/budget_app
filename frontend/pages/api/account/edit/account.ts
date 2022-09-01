@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse} from "next";
-import { BACKEND_URL, IronSessionRoute } from "lib/IronSession";
+import { BACKEND_URL, IronSessionRoute } from "bin/IronSession";
 
 const editAccount = async (req: NextApiRequest, res: NextApiResponse) => {
   const { firstName, lastName, budget } = req.body;

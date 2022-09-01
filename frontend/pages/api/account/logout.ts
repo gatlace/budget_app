@@ -1,4 +1,4 @@
-import { IronSessionRoute } from "lib/IronSession";
+import { IronSessionRoute } from "bin/IronSession";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const logout = async (req: NextApiRequest, res: NextApiResponse) => {
