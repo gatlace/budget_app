@@ -13,7 +13,7 @@ const login = () => {
         <a>
           <Button onClick={() => {}}>
             <div className={pageStyles.displayContainer + " text-center"}>
-              Don't have an account? Create one!
+              {"Don't have an account? Create one!"}
             </div>
           </Button>
         </a>
