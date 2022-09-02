@@ -13,8 +13,8 @@ const sessionOptions = {
   },
 };
 
-//export const BACKEND_URL = "https://gatlace-budget-app-backend.herokuapp.com";
-export const BACKEND_URL = "http://localhost:8000";
+export const BACKEND_URL = "https://gatlace-budget-app-backend.herokuapp.com";
+//export const BACKEND_URL = "http://localhost:8000";
 
 export const IronSessionRoute = (handler: NextApiHandler) => {
   return withIronSessionApiRoute(handler, sessionOptions);
