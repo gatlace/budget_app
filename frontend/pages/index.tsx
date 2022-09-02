@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <div className={pageStyles.displayContainer}>
           <h1 className={pageStyles.displayHeader}>How does it work?</h1>
           <div className={pageStyles.displayContent}>
-            <p>
+            <p >
               {`It's really simple. You create a new account, and then create a
               new budget. You can then add transactions to your budget, and see
               how you're spending your money. It's a very simple full-stack CRUD
