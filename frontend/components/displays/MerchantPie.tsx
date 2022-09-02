@@ -51,7 +51,7 @@ const MerchantPie = (props: Props) => {
           labelStyle={{
             fontSize: "6px",
             fontFamily: "sans-serif",
-            fill: "#aaa",
+            fill: "#fff",
             fontWeight: "bold",
           }}
           segmentsShift={(index: number) =>
