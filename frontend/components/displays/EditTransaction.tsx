@@ -97,7 +97,7 @@ const EditTransaction = (props: Props) => {
           <h1 className={pageStyles.displayHeader}>Edit Transaction</h1>
           <div className={pageStyles.displayContent}></div>
           <div className={componentStyles.inputField}>
-            <label className="mx-2">Amount</label>
+            <label className="w-full text-center">Amount</label>
             <input
               className={componentStyles.input}
               type="number"
@@ -110,8 +110,8 @@ const EditTransaction = (props: Props) => {
               onChange={handleAmountChange}
             />
           </div>
-          <div className={componentStyles.inputField}>
-            <label className="mx-2 ">Merchant</label>
+          <div className={componentStyles.inputField + " justify-start"}>
+            <label className="w-28 text-center">Merchant</label>
             <input
               className={componentStyles.input}
               type="text"
@@ -124,8 +124,8 @@ const EditTransaction = (props: Props) => {
               onChange={handleMerchantChange}
             />
           </div>
-          <div className={componentStyles.inputField}>
-            <label className="mx-2">Date</label>
+          <div className={componentStyles.inputField + " justify-start"}>
+            <label className="mx-10">Date</label>
             <input
               className={componentStyles.input}
               type="date"

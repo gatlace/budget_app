@@ -6,7 +6,7 @@ import Button from "./base/Button";
 const Footer = () => {
   return (
     <div className={styles.footer}>
-      <div className={styles.headerItem}>
+      <div className={styles.footerItem}>
         Created by&nbsp;
         <Button onClick={() => window.open("https://ziidonato.com", "_blank")}>
           Zii Donato&nbsp;&nbsp;
@@ -18,7 +18,7 @@ const Footer = () => {
           <i className={`fab fa-linkedin fa-lg`}/>
         </Button>
       </div>
-      <div className={styles.headerItem}>
+      <div className={styles.footerItem}>
         May 2022
       </div>
     </div>
