@@ -4,6 +4,7 @@ import pageStyles from "styles/Page.module.scss";
 import MerchantPie from "components/displays/MerchantPie";
 import { useRouter } from "next/router";
 import Transactions from "components/displays/Transactions";
+import { Transaction } from "./merchants/[merchant]";
 
 interface Props {
   merchants: Merchant[];
@@ -22,13 +23,6 @@ interface Merchant {
   name: string;
   percentage: number;
   color: string;
-}
-
-export interface Transaction {
-  amount: number;
-  merchant: string;
-  date: Date;
-  id: number;
 }
 
 const dashboard = (props: Props) => {
