@@ -50,11 +50,16 @@ const Nav = (props: { onClose: () => void }) => {
             await router.push("/");
           },
         },
-    {
-      name: "Dashboard",
-      func: () => router.push("/dashboard"),
-    },
   ];
+
+  if (isLoggedIn) {
+    links.push(
+      {
+        name: "Dashboard",
+        func: () => router.push("/dashboard"),
+      }
+    )
+  }
 
   const navItems = links.map(({ name, func }, index) => (
     <button

@@ -7,17 +7,24 @@
   min-width: 16rem;
   width: max-content;
   gap: 0.5rem;
+}
 
-  .displayCard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 94%;
-    border-radius: 0.5rem;
-    flex-grow: 1;
-    margin-right: 0.25rem;
-    transition: all 0.1s ease-in-out;
+.displayCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 94%;
+  border-radius: 0.5rem;
+  flex-grow: 1;
+  margin-right: 0.25rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.hover {
+
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -35,6 +42,9 @@
     background-color: $dark-background;
     border: 1px solid $dark-accent;
 
+  }
+
+  .hover {
     &:hover {
       background-color: $dark-tertiary;
     }
@@ -46,6 +56,9 @@
     background-color: $light-background;
     border: 1px solid $light-accent;
 
+  }
+
+  .hover {
     &:hover {
       background-color: $light-tertiary;
     }

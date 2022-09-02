@@ -22,7 +22,7 @@ const EditTransaction = (props: Props) => {
     currentTransaction ? currentTransaction.merchant : ""
   );
   const [date, setDate] = React.useState(
-    currentTransaction ? currentTransaction.date : new Date()
+    currentTransaction ? new Date(currentTransaction.date) : new Date()
   );
 
   const handleSubmit = async () => {
@@ -86,6 +86,10 @@ const EditTransaction = (props: Props) => {
     setDate(new Date(e.target.value));
   };
 
+  const checkIfDateIsValid = (date: any) => {
+    return date instanceof Date && !isNaN(date.valueOf());
+  }
+
   return (
     <Portal onClose={onClose} styles="flex justify-center items-center">
       <div className={styles.editTransaction}>
@@ -130,7 +134,7 @@ const EditTransaction = (props: Props) => {
                   ? (currentTransaction.date as unknown as string)
                   : ""
               }
-              value={new Date(date).toISOString().split("T")[0]}
+              value={checkIfDateIsValid(date)? new Date(date).toISOString().split("T")[0]: ""}
               onChange={handleDateChange}
             />
           </div>

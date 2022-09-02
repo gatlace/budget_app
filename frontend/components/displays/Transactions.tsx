@@ -35,7 +35,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
         key={index}
         className={
           styles.displayCard +
-          (isEditing ? " cursor-pointer hover:scale-y-125" : "")
+          (isEditing ? " " + styles.hover : "")
         }
         onClick={
           isEditing
@@ -47,7 +47,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
       >
         <div className="flex w-full justify-between px-2">
           <h2 className="text-sm">{transaction.merchant}</h2>
-          <h2 className="text-sm">{transaction.date.toLocaleString()}</h2>
+          <h2 className="text-sm">{new Date(transaction.date).toLocaleDateString('en-US')}</h2>
         </div>
         <h1 className="text-lg">${transaction.amount}</h1>
       </div>

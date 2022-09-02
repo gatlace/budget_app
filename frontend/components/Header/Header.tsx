@@ -5,14 +5,19 @@ import Settings from "./Settings";
 import { useRouter } from "next/router";
 import Button from "components/base/Button";
 import Link from "next/link";
+import useIsLoggedIn from "../../hooks/useIsLoggedIn";
 
 const Header = () => {
   const router = useRouter();
+  const isLoggedIn = useIsLoggedIn();
   const path = router.pathname.split("/")[1];
   return (
     <div className={styles.header}>
       <div className={styles.headerItem}>
-        <Settings />
+        {
+          isLoggedIn &&
+          <Settings />
+        }
       </div>
       <Link href="/">
         <a>
