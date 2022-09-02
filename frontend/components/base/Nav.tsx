@@ -51,7 +51,7 @@ const NavButton = (props: {links: Link[], icon: React.ReactNode, align: "start" 
 
   return (
     <>
-      <div className={`w-full h-full text-${props.align}`}>
+      <div className={`flex w-full h-full justify-${props.align}`}>
         <Button onClick={() => setIsOpen(true)}>
           {props.icon}
         </Button>

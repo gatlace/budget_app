@@ -50,7 +50,7 @@ const WebsiteNav = () => {
       links={links}
       loggedInLinks={loggedInLinks}
       icon={icon}
-      align={'end'}
+      align={"end"}
     />
   );
 };
