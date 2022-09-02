@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { IronSessionRoute, BACKEND_URL } from "bin/IronSession";
+import { IronSessionRoute, BACKEND_URL, checkIfLoggedIn } from "bin/IronSession";
 import { resourceLimits } from "worker_threads";
 
 declare module "iron-session" {
@@ -13,8 +13,7 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (!username || !password) {
     if (req.session.token) {
-      res.status(200).json({ message: "Already logged in" });
-      return;
+      res.status(200).json({ isLoggedIn: true });
     } else {
       res.status(400).json({ message: "Please provide username and password" });
       return;

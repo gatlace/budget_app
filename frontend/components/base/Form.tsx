@@ -37,7 +37,7 @@ const Form = (props: Props) => {
       } else {
         return (
           <div className={formStyles.inputField} key={index}>
-            <label htmlFor={name}>{label}:</label>
+            <label htmlFor={name} className="w-full text-center">{label}:</label>
             <input
               className={formStyles.input}
               type={type}

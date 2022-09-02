@@ -46,8 +46,13 @@ def login(request):
         if len(user) == 0:
             return Response({"message": "Username does not exist"}, status=404)
 
+        print(user[0].check_password(request.data["password"]))
+
         if not user[0].check_password(request.data["password"]):
             return Response({"message": "Incorrect password"}, status=401)
+
+        if not Token.objects.filter(user=user[0]).exists():
+            Token.objects.create(user=user[0])
 
         token = Token.objects.get(user=user[0])
         return Response({"token": token.key}, status=200)
@@ -56,7 +61,6 @@ def login(request):
         if not request.user:
             return Response({"message": "Not logged in"}, status=401)
 
-        token = Token.objects.get(user=request.user)
         return Response({"success": "logged in"}, status=200)
 
 
@@ -70,12 +74,10 @@ def account_details(request):
     return Response({"username": username, "account": serialize(account)}, status=200)
 
 
-
 @api_view(["PUT"])
 def edit_account(request):
     if not request.user.is_authenticated:
         return Response({"message": "Please login"}, status=401)
-
 
     if (
         not request.data["firstName"]

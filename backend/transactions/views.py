@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from users.models import Account
-from .models import Transaction
+from .models import Transaction, Merchant
 from .serializers import serialize
 
 # Create your views here.
@@ -11,44 +11,38 @@ from .serializers import serialize
 
 @api_view(["GET"])
 def account_summary(request):
+    if not Account.objects.filter(user=request.user).exists():
+        return Response({"message": "Account does not exist"}, status=404)
+
     account = Account.objects.get(user=request.user)
     transactions = sorted(
         Transaction.objects.filter(account=account), key=lambda x: x.date, reverse=True
     )
     if transactions is None:
         return Response({"message": "No transactions found"}, status=404)
-    merchant_set = set([transaction.merchant for transaction in transactions])
-    merchant_percentages = {
-        merchant: (
-            (
-                round(
-                    sum(
-                        [
-                            transaction.amount
-                            for transaction in transactions
-                            if transaction.merchant == merchant
-                        ]
-                    )
-                    / account.balance,
-                    2,
-                )
-            )
-        )
-        for merchant in merchant_set
-    }
     merchants = [
-        {
-            "name": merchant,
-            "percentage": merchant_percentages[merchant],
-        }
-        for merchant in merchant_set
+        serialize(transaction)
+        for transaction in set(Merchant.objects.filter(transaction__in=transactions))
     ]
+
+    for merchant in merchants:
+        merchant["total"] = sum(
+            [
+                transaction.amount
+                for transaction in transactions
+                if transaction.merchant.id == merchant["id"]
+            ]
+        )
+        if account.budget > 0:
+            merchant["percentage"] = merchant["total"] / account.budget * 100
 
     return Response(
         {
             "merchants": merchants,
             "account": serialize(account),
-            "transactions": [serialize(transaction) for transaction in transactions],
+            "transactions": [serialize(transaction) for transaction in transactions][
+                :25
+            ],
         }
     )
 
@@ -63,27 +57,23 @@ def get_all_transactions(request):
         reverse=True,
     )
     return Response({"transactions": serialized_transactions})
-    return Response({"transactions": serialized_transactions})
 
 
 @api_view(["GET"])
-def get_merchant_transactions(request, merchant):
+def get_merchant_transactions(request, merchant_name):
     account = Account.objects.get(user=request.user)
+    merchant = Merchant.objects.get(name=merchant_name)
     transactions = Transaction.objects.filter(account=account, merchant=merchant)
     if not transactions:
         return Response({"message": "No transactions found for this merchant."})
-    merchant_percentage = sum([t.amount for t in transactions]) / account.balance * 100
-    total = sum([t.amount for t in transactions])
     return Response(
         {
-            "merchant": merchant,
-            "percentage": round(merchant_percentage, 2),
-            "transactions": sorted(
-                [serialize(transaction) for transaction in transactions],
-                key=lambda x: x["date"],
-                reverse=True,
-            ),
-            "total": total,
+            "merchant": serialize(merchant),
+            "transactions": [serialize(transaction) for transaction in transactions],
+            "percentage": sum([transaction.amount for transaction in transactions])
+            / account.budget
+            * 100,
+            "total": sum([transaction.amount for transaction in transactions]),
         }
     )
 

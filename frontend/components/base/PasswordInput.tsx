@@ -13,7 +13,7 @@ const PasswordInput = (props: Props) => {
 
   return (
     <div className={formStyles.inputField}>
-      <label htmlFor="password">{props.label ? props.label + ":" : "Password"}</label>
+      <label htmlFor="password" className="w-full text-center">{props.label ? props.label + ":" : "Password"}</label>
       <input
         type={showPassword ? "text" : "password"}
         id="password"

@@ -6,9 +6,9 @@ import Portal from "components/base/Portal";
 import { AnimatePresence } from "framer-motion";
 import EditTransaction from "./EditTransaction";
 import { BACKEND_URL } from "bin/IronSession";
-import { Transaction } from "pages/dashboard";
 import Button from "components/base/Button";
 import Link from "next/link";
+import { Transaction } from "../../pages/merchants/[merchant]";
 
 const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
   const router = useRouter();
@@ -46,7 +46,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
         }
       >
         <div className="flex w-full justify-between px-2">
-          <h2 className="text-sm">{transaction.merchant}</h2>
+          <h2 className="text-sm">{transaction.merchant_name}</h2>
           <h2 className="text-sm">{new Date(transaction.date).toLocaleDateString('en-US')}</h2>
         </div>
         <h1 className="text-lg">${transaction.amount}</h1>

@@ -6,7 +6,6 @@ import pageStyles from "styles/Page.module.scss";
 
 export interface Props {
   merchants: MerchantData[];
-  colors: string[];
 }
 
 export interface MerchantData {

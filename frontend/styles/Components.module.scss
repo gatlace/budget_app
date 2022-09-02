@@ -10,7 +10,7 @@
   backdrop-filter: blur(5px);
 }
 
-.nav {
+.portalNav {
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -18,18 +18,25 @@
   min-height: max-content;
   border-radius: 0.5rem;
   overflow: hidden;
+}
 
-  .navItem {
-    display: flex;
-    width: 100%;
-    min-width: max-content;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.5rem 0 0.5rem;
-    transition: background-color 0.2s ease-in-out;
-    flex-grow: 1;
-    cursor: pointer;
-  }
+.desktopNav {
+  display: flex;
+  gap: 2px;
+  width: max-content;
+  min-height: max-content;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.navItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem 0 0.5rem;
+  transition: background-color 0.2s ease-in-out;
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .inputField {
@@ -47,7 +54,7 @@
 }
 
 @media (max-width: 768px) {
-  .nav {
+  .portalNav {
     width: 10rem;
   }
 
@@ -62,16 +69,16 @@
     border-color: $dark-accent;
     background-color: $dark-background;
   }
-  .nav {
+  .portalNav {
     background-color: $dark-tertiary;
     border: 1px solid $dark-accent;
 
-    .navItem {
-      background-color: $dark-content-background;
+  }
+  .navItem {
+    background-color: $dark-content-background;
 
-      &:hover {
-        background-color: $dark-tertiary;
-      }
+    &:hover {
+      background-color: $dark-tertiary;
     }
   }
 }
@@ -80,16 +87,16 @@
     border-color: $light-accent;
     background-color: $light-background;
   }
-  .nav {
+  .portalNav {
     background-color: $light-tertiary;
     border: 1px solid $light-accent;
+    }
 
-    .navItem {
-      background-color: $light-background;
+  .navItem {
+    background-color: $light-background;
 
-      &:hover {
-        background-color: $light-tertiary;
-      }
+    &:hover {
+      background-color: $light-tertiary;
     }
   }
 }

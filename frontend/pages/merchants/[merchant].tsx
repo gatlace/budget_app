@@ -4,26 +4,34 @@ import { BACKEND_URL, IronSessionSSR } from "bin/IronSession";
 import Link from "next/link";
 import pageStyles from "styles/Page.module.scss";
 
-export interface Props {
-  merchant: string;
-  percentage: number;
+interface Props {
+  merchant:     Merchant;
   transactions: Transaction[];
-  total: number;
+  percentage:   number;
+  total:        number;
+}
+
+interface Merchant {
+  name:  string;
+  color: string;
+  id:    number;
 }
 
 export interface Transaction {
-  amount: number;
-  merchant: string;
-  date: Date;
-  id: number;
+  amount:        string;
+  merchant_name: string;
+  date:          Date;
+  id:            number;
 }
 
+
 const merchant = (props: Props) => {
+  console.log(props);
   return (
     <div className={pageStyles.pageContent}>
       <Link href="/dashboard">
         <Button onClick={() => {}}>
-          <a className={pageStyles.pageHeader}>{props.merchant}</a>
+          <a className={pageStyles.pageHeader}>{props.merchant.name}</a>
         </Button>
       </Link>
       <div className={pageStyles.displayContainer}>

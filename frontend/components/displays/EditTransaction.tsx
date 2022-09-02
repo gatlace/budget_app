@@ -3,8 +3,8 @@ import React from "react";
 import styles from "styles/Transactions.module.scss";
 import pageStyles from "styles/Page.module.scss";
 import componentStyles from "styles/Components.module.scss";
-import { Transaction } from "pages/dashboard";
 import Button from "components/base/Button";
+import { Transaction } from "../../pages/merchants/[merchant]";
 
 type Props = {
   currentTransaction?: Transaction;
@@ -19,7 +19,7 @@ const EditTransaction = (props: Props) => {
     currentTransaction ? currentTransaction.amount : 0
   );
   const [merchant, setMerchant] = React.useState(
-    currentTransaction ? currentTransaction.merchant : ""
+    currentTransaction ? currentTransaction.merchant_name : ""
   );
   const [date, setDate] = React.useState(
     currentTransaction ? new Date(currentTransaction.date) : new Date()
@@ -117,7 +117,7 @@ const EditTransaction = (props: Props) => {
               type="text"
               placeholder={
                 currentTransaction
-                  ? (currentTransaction.merchant as unknown as string)
+                  ? (currentTransaction.merchant_name as unknown as string)
                   : ""
               }
               value={merchant as string}
