@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "styles/Header/Header.module.scss";
+import styles from "styles/HeaderFooter.module.scss";
 import Nav from "./Nav";
 import Settings from "./Settings";
 import { NextRouter, useRouter } from "next/router";

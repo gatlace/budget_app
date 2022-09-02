@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import "styles/global.scss";
 import Page from "components/Page";
 import { checkIfLoggedIn, IronSessionSSR } from "bin/IronSession";
+import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,6 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Page>
         <Component {...pageProps} />
       </Page>
+      <Footer />
       <div id="portals" />
     </>
   );

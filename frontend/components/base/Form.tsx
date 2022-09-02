@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "../base/Button";
-import formStyles from "styles/pages/Form.module.scss";
+import formStyles from "styles/Form.module.scss";
 import pageStyles from "styles/Page.module.scss";
 import PasswordInput from "./PasswordInput";
 

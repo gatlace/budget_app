@@ -26,7 +26,6 @@ export interface Transaction {
 
 
 const merchant = (props: Props) => {
-  console.log(props);
   return (
     <div className={pageStyles.pageContent}>
       <Link href="/dashboard">

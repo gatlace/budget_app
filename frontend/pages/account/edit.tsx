@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import pageStyles from "styles/Page.module.scss";
 import Button from "components/base/Button";
-import formStyles from "styles/pages/Form.module.scss";
+import formStyles from "styles/Form.module.scss";
 import PasswordInput from "components/base/PasswordInput";
 import { useRouter } from "next/router";
 import { checkIfLoggedIn, IronSessionSSR } from "../../bin/IronSession";

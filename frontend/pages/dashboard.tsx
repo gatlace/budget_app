@@ -28,8 +28,6 @@ interface Merchant {
 const dashboard = (props: Props) => {
   const { merchants, account, transactions, } = props;
 
-  console.log(merchants);
-
   const colors = merchants.map(merchant => merchant.color);
 
   const merchantData = merchants

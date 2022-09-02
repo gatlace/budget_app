@@ -1,5 +1,5 @@
 import React from "react";
-import formStyles from "styles/pages/Form.module.scss";
+import formStyles from "styles/Form.module.scss";
 import Button from "./Button";
 
 type Props = {

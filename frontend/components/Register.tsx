@@ -1,5 +1,5 @@
 import React, { MouseEventHandler } from "react";
-import loginStyles from "styles/pages/Form.module.scss";
+import loginStyles from "styles/Form.module.scss";
 import Button from "./base/Button";
 import { useRouter } from "next/router";
 import Form from "./base/Form";
