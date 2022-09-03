@@ -92,7 +92,6 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
         <div className={pageStyles.displayContent}>
           <div
             className={styles.scrollableContent}
-            style={!isEditing ? { height: "16rem" } : { height: "40rem" }}
           >
             {transactions.length > 0 ? (
               transactionsDisplay
