@@ -176,7 +176,7 @@ const Edit = () => {
         <Button onClick={() => router.push("/dashboard")}>Edit Account</Button>
       </h1>
 
-      <siv className={pageStyles.pageContent}>
+      <div className={pageStyles.pageContent}>
       <Form
         isLoading={accountLoading}
         error={accountError}
