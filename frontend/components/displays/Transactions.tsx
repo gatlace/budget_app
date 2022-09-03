@@ -29,14 +29,16 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
     router.replace(router.asPath);
   };
 
+  const dateStringToDate = (dateString: string) => {
+    const [year, month, day] = dateString.split("-");
+    return new Date(Number(year), Number(month) - 1, Number(day));
+  };
+
   const transactionsDisplay = transactions.map((transaction, index) => {
     return (
       <div
         key={index}
-        className={
-          styles.displayCard +
-          (isEditing ? " " + styles.hover : "")
-        }
+        className={styles.displayCard + (isEditing ? " " + styles.hover : "")}
         onClick={
           isEditing
             ? () => {
@@ -47,7 +49,11 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
       >
         <div className="flex w-full justify-between px-2">
           <h2 className="text-sm">{transaction.merchant_name}</h2>
-          <h2 className="text-sm">{new Date(transaction.date).toLocaleDateString('en-US')}</h2>
+          <h2 className="text-sm">
+            {dateStringToDate(
+              transaction.date as unknown as string //only way to get the date formatted right
+            ).toLocaleDateString("en-US")}
+          </h2>
         </div>
         <h1 className="text-lg">${transaction.amount}</h1>
       </div>

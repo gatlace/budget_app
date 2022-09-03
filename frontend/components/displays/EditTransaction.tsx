@@ -29,7 +29,7 @@ const EditTransaction = (props: Props) => {
     if (!currentTransaction) {
       return;
     }
-    await fetch(`/api/edit_transaction`, {
+    await fetch(`/api/transactions/edit`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -82,7 +82,7 @@ def get_merchant_transactions(request, merchant_name):
 def edit_transaction(request, id):
     transaction = Transaction.objects.get(id=id)
     transaction.amount = request.data["amount"]
-    transaction.merchant = request.data["merchant"]
+    transaction.merchant = Merchant.objects.get(name=request.data["merchant"])
     transaction.date = request.data["date"]
     transaction.save()
     return Response({"message": "Transaction updated successfully."})

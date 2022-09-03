@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const editTransaction = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id, amount, merchant, date } = req.body;
+  console.log(id, amount, merchant, date);
 
   const result = await fetch(`${BACKEND_URL}/transactions/edit/${id}/`, {
     method: "PUT",
