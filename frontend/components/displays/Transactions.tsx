@@ -92,7 +92,7 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
         <div className={pageStyles.displayContent}>
           <div
             className={styles.scrollableContent}
-            style={!isEditing ? { height: "20rem" } : { height: "42rem" }}
+            style={!isEditing ? { height: "20rem" } : { height: "36rem" }}
           >
             {transactions.length > 0 ? (
               transactionsDisplay
