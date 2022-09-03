@@ -101,7 +101,7 @@ def add_transaction(request):
     transaction = Transaction(
         account=account,
         amount=request.data["amount"],
-        merchant=request.data["merchant"],
+        merchant=Merchant.objects.get_or_create(name=request.data["merchant"])[0],
         date=request.data["date"],
     )
     transaction.save()

@@ -49,7 +49,8 @@ const Transactions = ({ transactions }: { transactions: Transaction[] }) => {
       >
         <div className="flex w-full justify-between px-2">
           <h2 className="text-sm">{transaction.merchant_name}</h2>
-          <h2 className="text-sm">
+          {" "}
+          <h2 className="text-sm ml-2">
             {dateStringToDate(
               transaction.date as unknown as string //only way to get the date formatted right
             ).toLocaleDateString("en-US")}

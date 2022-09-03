@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { PieChart } from "react-minimal-pie-chart";
 import pageStyles from "styles/Page.module.scss";
+import Link from "next/link";
 
 export interface Props {
   merchants: MerchantData[];
@@ -26,13 +27,17 @@ const MerchantPie = (props: Props) => {
       <div className="flex flex-col items-center text-sm">
         {props.merchants.map((merchant, index) => {
           return (
-            <div
-              key={index}
-              style={{ backgroundColor: merchant.color }}
-              className="w-max text-center"
-            >
-              {merchant.title} {merchant.color}
-            </div>
+            <Link key={index} href={`/merchants/${merchant.title}`}>
+              <a>
+                <div
+                  key={index}
+                  style={{ backgroundColor: merchant.color }}
+                  className="w-max text-center"
+                >
+                  {merchant.title} {merchant.color}
+                </div>
+              </a>
+            </Link>
           );
         })}
       </div>
