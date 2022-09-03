@@ -51,14 +51,14 @@ const NavButton = (props: {links: Link[], icon: React.ReactNode, align: "start" 
 
   return (
     <>
-      <div className={"block w-full " + `text-${props.align}`}>
+      <div className={"block w-full " + (props.align === "start" ? "text-start" : "text-end")}>
         <Button onClick={() => setIsOpen(true)}>
           {props.icon}
         </Button>
       </div>
       <AnimatePresence>
         {isOpen && (
-          <Portal onClose={handleClose} styles="absolute right-4 top-20">
+          <Portal onClose={handleClose} styles={"absolute top-20 " + (props.align === "start" ? "left-4" : "right-4") }>
             <PortalNav links={props.links} onClose={handleClose} />
           </Portal>
         )}
