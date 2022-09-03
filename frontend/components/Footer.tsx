@@ -19,7 +19,7 @@ const Footer = () => {
         </Button>
       </div>
       <div className={styles.footerItem}>
-        May 2022
+        August 2022
       </div>
     </div>
   );
