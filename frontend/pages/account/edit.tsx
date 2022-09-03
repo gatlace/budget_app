@@ -176,6 +176,7 @@ const Edit = () => {
         <Button onClick={() => router.push("/dashboard")}>Edit Account</Button>
       </h1>
 
+      <siv className={pageStyles.pageContent}>
       <Form
         isLoading={accountLoading}
         error={accountError}
@@ -192,6 +193,7 @@ const Edit = () => {
         submitText={"Save"}
         key={"login"}
       />
+      </div>
     </>
   );
 };
